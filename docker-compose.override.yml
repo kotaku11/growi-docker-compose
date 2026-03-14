@@ -1,0 +1,14 @@
+services:
+  app:
+    environment:
+      - APP_SITE_URL=https://growi.example.com/
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./certs:/etc/nginx/certs:ro
+    depends_on:
+      - app
+    restart: unless-stopped
